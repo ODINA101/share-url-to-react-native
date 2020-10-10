@@ -10,10 +10,11 @@ import {
 } from 'react-native';
 
 class App extends Component {
-  
-
   componentDidMount = () => {
     alert(this.props.url)
+    Linking.addEventListener(url => {
+      alert(url)
+    })
   }
   render() {
     return (
