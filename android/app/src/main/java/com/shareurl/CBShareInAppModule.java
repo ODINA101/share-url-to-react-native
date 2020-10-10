@@ -42,15 +42,8 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
         return "CBShareInApp";
     }
 
-    // @ReactMethod
-    // public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-    //     // TODO: Implement some actually useful functionality
-    //     callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
-    // }
-
-
-      @Nullable
-  private ReadableMap extractShared(Intent intent)  {
+    @Nullable
+    private ReadableMap extractShared(Intent intent)  {
     String type = intent.getType();
 
     if (type == null) {
@@ -58,33 +51,32 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
     }
 
     String action = intent.getAction();
-
     WritableMap data = Arguments.createMap();
     data.putString(MIME_TYPE_KEY, type);
-
     if (Intent.ACTION_SEND.equals(action)) {
       if ("text/plain".equals(type)) {
         data.putString(DATA_KEY, intent.getStringExtra(Intent.EXTRA_TEXT));
         return data;
       }
 
-      Uri fileUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-      if (fileUri != null) {
-        data.putString(DATA_KEY, fileUri.toString());
-        return data;
-      }
-    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
-      ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-      if (fileUris != null) {
-        WritableArray uriArr = Arguments.createArray();
-        for (Uri uri : fileUris) {
-          uriArr.pushString(uri.toString());
-        }
-        data.putArray(DATA_KEY, uriArr);
-        return data;
-      }
-    }
+      // Uri fileUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+      // if (fileUri != null) {
+      //   data.putString(DATA_KEY, fileUri.toString());
+      //   return data;
+      // }
+    } 
 
+    // else if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
+    //   ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+    //   if (fileUris != null) {
+    //     WritableArray uriArr = Arguments.createArray();
+    //     for (Uri uri : fileUris) {
+    //       uriArr.pushString(uri.toString());
+    //     }
+    //     data.putArray(DATA_KEY, uriArr);
+    //     return data;
+    //   }
+    // }
     return null;
   }
 
@@ -105,8 +97,7 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
     if (mReactContext == null || !mReactContext.hasActiveCatalystInstance()) {
       return;
     }
-
-    mReactContext
+            mReactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(NEW_SHARE_EVENT, shared);
   }
