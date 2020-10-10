@@ -17,10 +17,17 @@ public class MainActivity extends ReactActivity {
                 Intent intent = MainActivity.this.getIntent();
                 Bundle bundle = new Bundle();
                 bundle.putString("url", intent.getStringExtra(Intent.EXTRA_TEXT));
+                bundle.putString("recentURL", intent.getStringExtra(Intent.EXTRA_SUBJECT));
                 return bundle;
             }
         };
     }
+      @Override
+  public void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    setIntent(intent);
+  }
+
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
