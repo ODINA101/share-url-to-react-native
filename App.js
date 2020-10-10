@@ -43,7 +43,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import ShareMenu from 'react-native-share-menu';
 import { createBottomTabNavigator          } from '@react-navigation/bottom-tabs';
 import { createStackNavigator              } from '@react-navigation/stack';
-
+import { NativeModules,NativeEventEmitter } from 'react-native';
 import Lists       from "./src/Screen/Lists";
 import List        from "./src/Screen/List";
 import Items       from "./src/Screen/Items";
@@ -51,7 +51,6 @@ import Item        from "./src/Screen/Item";
 
 import Friends     from "./src/Screen/Friends";
 import GuestList   from "./src/Screen/GuestList";
-
 const _module = 'App';
 
 const ListStack = createStackNavigator();
@@ -66,7 +65,14 @@ class ListStackScreen extends Component
 
   }
   componentDidMount() {
-    
+ 
+
+
+    // setInterval(() => {
+    //  // NativeModules.CBShareInApp.sampleMethod('test',2,(data) => {
+    //  //  alert(data)
+    //  // })
+    // },1000)
   }
 
   // alert(JSON.stringify(props.url))
@@ -82,7 +88,7 @@ class ListStackScreen extends Component
             <ListStack.Screen name="List"        component={ List        } />
             <ListStack.Screen name="Items"       component={ Items       } />
             
-            <ListStack.Screen name="Item"        component={ Item        } />
+            <ListStack.Screen name="Item"   component={ Item        } />
               
         </ListStack.Navigator>
     );
@@ -115,11 +121,17 @@ export default class App extends Component
   }
     componentDidMount( props )
     {
-      ShareMenu.addNewShareListener((txt) => {
-        handleUrl(txt.data)
-        this.setState({url:txt.data})
-        
-      })
+
+          const EventEmitter = new NativeEventEmitter(NativeModules.CBShareInApp);
+          EventEmitter.addListener("NewShareEvent",(txt) => {
+                   handleUrl(txt.data)
+                  this.setState({url:txt.data})
+          })
+
+      // ShareMenu.addNewShareListener((txt) => {
+      //   handleUrl(txt.data)
+      //   this.setState({url:txt.data})
+      // })
     
         
         // Linking.addEventListener(url => {
