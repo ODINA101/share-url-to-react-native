@@ -51,32 +51,17 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
     }
 
     String action = intent.getAction();
+
     WritableMap data = Arguments.createMap();
+
     data.putString(MIME_TYPE_KEY, type);
+             
     if (Intent.ACTION_SEND.equals(action)) {
       if ("text/plain".equals(type)) {
         data.putString(DATA_KEY, intent.getStringExtra(Intent.EXTRA_TEXT));
         return data;
       }
-
-      // Uri fileUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
-      // if (fileUri != null) {
-      //   data.putString(DATA_KEY, fileUri.toString());
-      //   return data;
-      // }
     } 
-
-    // else if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
-    //   ArrayList<Uri> fileUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-    //   if (fileUris != null) {
-    //     WritableArray uriArr = Arguments.createArray();
-    //     for (Uri uri : fileUris) {
-    //       uriArr.pushString(uri.toString());
-    //     }
-    //     data.putArray(DATA_KEY, uriArr);
-    //     return data;
-    //   }
-    // }
     return null;
   }
 
