@@ -20,6 +20,7 @@ const ListStack = createStackNavigator();
 const Stack = createStackNavigator();
 const navigationRef = React.createRef();
 
+  const EventEmitter = new NativeEventEmitter(NativeModules.CBShareInApp);
 
 
 
@@ -56,10 +57,13 @@ const Tab = createBottomTabNavigator();
 export default class App extends Component
 
 {
+
+    componentWillUnmount()  {
+     EventEmitter.remove()
+    }
     componentDidMount( props )
     {     
           //if app was in foreground share listener will receive shared data
-          const EventEmitter = new NativeEventEmitter(NativeModules.CBShareInApp);
           EventEmitter.addListener("NewShareEvent",(url) => {
                    //we got the shared url object 
                    handleUrl(url.data)
@@ -95,7 +99,6 @@ async function handleUrl( url )
     const scheme = url.substring( 0, url.indexOf(':') );
 
     console.log( _function + ": Scheme is '" + scheme + "'" );
-
 
 
     //first navigation step when the url is shared into app
