@@ -55,11 +55,7 @@ export default class App extends Component
     componentDidMount()
     {     
            
-
-          let fires = 0;
-
           //if app was in foreground share listener will receive shared data
-            
           EventEmitter.addListener("NewShareEvent",(url) => {
                    console.log('fired')
                //    we got the shared url object 
