@@ -22,11 +22,11 @@ public class MainActivity extends ReactActivity {
             }
         };
     }
-      @Override
-  public void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-    setIntent(intent);
-  }
+  //     @Override
+  // public void onNewIntent(Intent intent) {
+  //   super.onNewIntent(intent);
+  //   setIntent(intent);
+  // }
 
 
   /**

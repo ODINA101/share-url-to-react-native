@@ -11,7 +11,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
- 
+import android.util.Log;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -109,7 +109,7 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
 
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-    // DO nothing
+    // DO nothing 
   }
 
   @Override
@@ -123,8 +123,9 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
     }
 
     ReadableMap shared = extractShared(intent);
+    Log.i("MyActivity","dispatched event");
     dispatchEvent(shared);
-
+    
     // Update intent in case the user calls `getSharedText` again
     currentActivity.setIntent(intent);
   }

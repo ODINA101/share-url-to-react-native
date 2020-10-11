@@ -52,13 +52,19 @@ const Tab = createBottomTabNavigator();
 export default class App extends Component
 {
 
-    
+ 
     componentDidMount()
     {     
+
+          let fires = 0;
+
           //if app was in foreground share listener will receive shared data
           EventEmitter.addListener("NewShareEvent",(url) => {
+                   fires+=1;
                    //we got the shared url object 
-                   handleUrl(url.data)
+                   if(fires%2) {
+                      handleUrl(url.data)
+                   }
           })
 
       } 
@@ -84,15 +90,15 @@ export default class App extends Component
 
 async function handleUrl( url )
 {
-    const _function = _module + '.handleUrl';
-    console.log( _function + ": Handling URL: " + url );
-    // get the scheme
-    const scheme = url.substring( 0, url.indexOf(':') );
+    // const _function = _module + '.handleUrl';
+    // console.log( _function + ": Handling URL: " + url );
+    // // get the scheme
+    // const scheme = url.substring( 0, url.indexOf(':') );
 
-    console.log( _function + ": Scheme is '" + scheme + "'" );
+    // console.log( _function + ": Scheme is '" + scheme + "'" );
 
     //first navigation step when the url is shared into app
-    navigationRef.current?.navigate( 'ListStack' );
+    // navigationRef.current?.navigate( 'ListStack' );
     if(url) {
          navigationRef.current?.navigate( 'List' );
          navigationRef.current?.navigate( 'Items' );
