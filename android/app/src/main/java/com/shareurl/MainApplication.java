@@ -1,5 +1,4 @@
 package com.shareurl;
-
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -16,7 +15,6 @@ import com.shareurl.CBShareInAppPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
-
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
         @Override

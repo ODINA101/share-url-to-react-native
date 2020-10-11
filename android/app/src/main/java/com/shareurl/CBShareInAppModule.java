@@ -116,6 +116,16 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
 
   @Override
   public void onNewIntent(Intent intent) {
-    // DO nothing too
+       Activity currentActivity = getCurrentActivity();
+
+    if (currentActivity == null) {
+      return;
+    }
+
+    ReadableMap shared = extractShared(intent);
+    dispatchEvent(shared);
+
+    // Update intent in case the user calls `getSharedText` again
+    currentActivity.setIntent(intent);
   }
 }
