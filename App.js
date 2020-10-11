@@ -1,6 +1,6 @@
 
 import 'react-native-gesture-handler';
-import React, { createRef, Component,useEffe } from 'react';
+import React, { createRef, Component } from 'react';
 import { Linking } from 'react-native';
 import { NavigationContainer,StackActions } from '@react-navigation/native';
 import { createBottomTabNavigator          } from '@react-navigation/bottom-tabs';
@@ -17,9 +17,8 @@ const _module = 'App';
 
 const ListStack = createStackNavigator();
 const navigationRef = React.createRef();
+
 const EventEmitter = new NativeEventEmitter(NativeModules.CBShareInApp);
-
-
 
 function ListStackScreen()
 {
@@ -48,23 +47,23 @@ const Tab = createBottomTabNavigator();
  
 // create a reference so we can control navigation later, with incoming URLs
 
-
+  
 export default class App extends Component
 {
 
  
     componentDidMount()
     {     
+           
 
           let fires = 0;
 
           //if app was in foreground share listener will receive shared data
+            
           EventEmitter.addListener("NewShareEvent",(url) => {
-                   fires+=1;
-                   //we got the shared url object 
-                   if(fires%2) {
-                      handleUrl(url.data)
-                   }
+                   console.log('fired')
+               //    we got the shared url object 
+                     handleUrl(url.data)
           })
 
       } 
@@ -73,6 +72,7 @@ export default class App extends Component
         return (
           <NavigationContainer 
            onReady={() => {
+          
              //if app launched from the share panel prop url will be shared text
               if(this.props.url) {
                  handleUrl(this.props.url)

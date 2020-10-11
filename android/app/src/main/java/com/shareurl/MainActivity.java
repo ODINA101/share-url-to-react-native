@@ -17,7 +17,6 @@ public class MainActivity extends ReactActivity {
                 Intent intent = MainActivity.this.getIntent();
                 Bundle bundle = new Bundle();
                 bundle.putString("url", intent.getStringExtra(Intent.EXTRA_TEXT));
-                bundle.putString("recentURL", intent.getStringExtra(Intent.EXTRA_SUBJECT));
                 return bundle;
             }
         };

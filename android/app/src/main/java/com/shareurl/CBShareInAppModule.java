@@ -82,6 +82,8 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
     if (mReactContext == null || !mReactContext.hasActiveCatalystInstance()) {
       return;
     }
+
+           // Log.i("MyActivity","dispatched event");
             mReactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit(NEW_SHARE_EVENT, shared);
@@ -114,19 +116,6 @@ public class CBShareInAppModule extends ReactContextBaseJavaModule  implements A
 
   @Override
   public void onNewIntent(Intent intent) {
-    // Possibly received a new share while the app was already running
-
-    Activity currentActivity = getCurrentActivity();
-
-    if (currentActivity == null) {
-      return;
-    }
-
-    ReadableMap shared = extractShared(intent);
-    Log.i("MyActivity","dispatched event");
-    dispatchEvent(shared);
-    
-    // Update intent in case the user calls `getSharedText` again
-    currentActivity.setIntent(intent);
+    // DO nothing too
   }
 }
